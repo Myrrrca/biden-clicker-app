@@ -1,0 +1,42 @@
+/* @import url('https://fonts.googleapis.com/css?family=Rubic:300,400,500,600,700,800,900&display=swap'); */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  /* font-family: 'Rubic', sans-serif; */
+}
+
+body {
+  max-height: 100%;
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 15vh;
+}
+
+.nav {
+  display: flex;
+  position: relative;
+  width: 300px;
+  justify-content: space-between;
+  margin-right: 25px;
+}
+
+.nav li {
+  list-style: none;
+}
+
+.nav li a {
+  font-size: 20px;
+  text-decoration: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  color: rgb(0, 0, 0);
+}
+
+.nav li a:hover {
+  background-color: rgb(126, 168, 202);
+}
