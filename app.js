@@ -8,9 +8,9 @@ const updateScoreCounter = () => {
 };
 
 const changeBidenFace = () => {
-  bidenImg.src = "pics/biden-bonk-tears.png";
+  bidenImg.src = "./pics/biden-bonk-tears.png";
   setTimeout(() => {
-    bidenImg.src = "pics/biden-based.png";
+    bidenImg.src = "./pics/biden-based.png";
   }, 200);
 };
 
