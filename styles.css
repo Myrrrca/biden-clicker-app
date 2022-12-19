@@ -21,7 +21,7 @@ body {
 .logo {
   position: relative;
   margin-left: 25px;
-  font-size: 22px;
+  font-size: 25px;
   text-decoration: none;
   color: rgb(0, 0, 0);
 }
@@ -29,7 +29,7 @@ body {
 .nav {
   display: flex;
   position: relative;
-  width: 300px;
+  width: 350px;
   justify-content: space-between;
   margin-right: 30px;
 }
@@ -69,7 +69,11 @@ body {
 }
 
 .img_biden img:hover {
-  cursor: url(./pics/hammer.webp) 14 0, default;
+  cursor: url(./pics/hammer.webp) 0 0, default;
+}
+
+.bonk_cursor {
+  cursor: url(./pics/hammer-bonk.webp) 0 0, default !important;
 }
 
 .img_biden {
