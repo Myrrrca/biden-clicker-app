@@ -8,6 +8,7 @@
 
 body {
   max-height: 100%;
+  background-color: rgb(240, 240, 240);
 }
 
 #header {
@@ -48,4 +49,45 @@ body {
 
 .nav li a:hover {
   background-color: rgb(126, 168, 202);
+}
+
+.main {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 90vh;
+  padding-top: 20px;
+}
+
+.img_biden img {
+  position: relative;
+  width: auto;
+  border: 2px solid black;
+  margin-left: 25px;
+  height: 100%;
+}
+
+.img_biden img:hover {
+  cursor: url(./pics/hammer.webp) 14 0, default;
+}
+
+.img_biden {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 50%;
+  height: 100%;
+  overflow: visible;
+}
+
+.score {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  font-size: 20px;
+  width: 50%;
+  height: 100%;
 }
