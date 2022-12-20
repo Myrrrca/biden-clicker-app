@@ -72,7 +72,7 @@ bidenImg.addEventListener("click", clickOnBiden);
 buttonTrump.addEventListener("click", clickOnTrumpButton);
 
 const preapareGame = () => {
-  score = 488;
+  score = 0;
   updateScoreCounter();
   updateTrumpButton();
 };
