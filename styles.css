@@ -110,14 +110,24 @@ body {
   display: flex;
   height: 100px;
   width: 100%;
-  background-color: red;
-}
-
-.trump-pic {
+  background-color: black;
 }
 
 .buttons {
   display: flex;
+}
+
+.button-tramp-all {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.trump-cost {
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
 }
 
 .button-tramp {
@@ -125,6 +135,12 @@ body {
   color: rgb(100, 100, 100);
   width: 70px;
   padding: 5px 1px;
+  margin-top: 15px;
+}
+
+.hidden-button-text {
+  overflow: hidden;
+  display: none;
 }
 
 .active-button {

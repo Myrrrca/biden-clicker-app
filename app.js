@@ -2,9 +2,15 @@ const bidenImg = document.querySelector("#biden");
 const scoreText = document.querySelector("#score-counter");
 const buttonTrump = document.querySelector(".button-tramp");
 const trumpsSpace = document.querySelector(".trumps");
+const trumpCost = document.querySelector(".trump-cost");
+const trumpButtonText = document.querySelector("#trump-button-text");
+const trumpButtonTextBottom = document.querySelector(
+  "#trump-botton-text-buttom"
+);
 
 let score = 0;
 let trumpCounter = 0;
+let trumpCostCounter = 50;
 
 const updateScoreCounter = () => {
   scoreText.innerHTML = `${score}`;
@@ -25,8 +31,10 @@ const changeCursorBonk = (event) => {
 };
 
 const updateTrumpButton = () => {
-  if (score >= 50) {
+  if (score >= trumpCostCounter) {
     buttonTrump.classList.add("active-button");
+  } else {
+    buttonTrump.classList.remove("active-button");
   }
 };
 
@@ -56,16 +64,51 @@ const addTrump = () => {
   }
 };
 
+const updateTrumpCost = () => {
+  if (trumpCounter === 1) {
+    trumpCostCounter += 15;
+    return (trumpCost.innerHTML = `${65}`);
+  } else if (trumpCounter >= 6) {
+    trumpButtonText.classList.add("hidden-button-text");
+    trumpButtonTextBottom.classList.add("hidden-button-text");
+    trumpCost.innerHTML = "No more Trumps, sorry :(";
+  } else {
+    trumpCostCounter = trumpCostCounter + 15 * trumpCounter;
+    console.log(trumpCostCounter);
+    trumpCost.innerHTML = `${trumpCostCounter}`;
+  }
+};
+
+const trumpClicking = () => {
+  if (trumpCounter > 0) {
+    setTimeout(() => {
+      ++score;
+      updateScoreCounter();
+      trumpClicking();
+      updateTrumpButton();
+    }, 1000);
+  }
+};
+
 const clickOnTrumpButton = (event) => {
-  if (buttonTrump.classList.contains("active-button") && !(trumpCounter > 6)) {
+  if (
+    buttonTrump.classList.contains("active-button") &&
+    !(trumpCounter > 6) &&
+    score >= trumpCostCounter
+  ) {
+    score -= trumpCostCounter;
     updateScoreCounter();
     addTrump();
     buttonTrump.classList.remove("active-button");
     updateTrumpButton();
-    if (!(trumpCounter > 5)) {
-      score -= 50;
+    trumpClicking();
+
+    updateTrumpCost();
+    if (trumpCounter >= 6) {
+      score += trumpCostCounter;
     }
   }
+  updateTrumpButton();
 };
 
 bidenImg.addEventListener("click", clickOnBiden);
