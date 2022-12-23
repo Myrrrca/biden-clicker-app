@@ -16,6 +16,7 @@ let trumpCostCounter = 50;
 //updating functions
 const updateScoreCounter = () => {
   scoreText.innerHTML = `${score}`;
+  setScoreToLocalStorage();
 };
 
 const changeBidenFace = () => {
@@ -63,7 +64,6 @@ const clickOnBiden = (event) => {
   changeBidenFace();
   changeCursorBonk(event);
   updateTrumpButton();
-  setLocalStorage();
 };
 
 //trump click
@@ -130,17 +130,25 @@ resetButton.addEventListener("click", clickOnNewGameButton);
 //window.addEventListener("load", reloadPage);
 
 //localStorage
-const setLocalStorage = () => {
+const setAllLocalStorage = () => {
+  localStorage.setItem("score", `${score}`);
+};
+
+const setScoreToLocalStorage = () => {
   localStorage.setItem("score", `${score}`);
   console.log(localStorage.getItem("score"));
 };
 
+const getScoreFromLocalStorage = () => {
+  return localStorage.getItem("score");
+};
+
 //preparing game
 const preapareGame = () => {
-  score = 0;
+  score = 4558;
   updateScoreCounter();
   updateTrumpButton();
-  setLocalStorage();
+  setAllLocalStorage();
 };
 
 preapareGame();
