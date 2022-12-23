@@ -9,14 +9,15 @@ const trumpButtonTextBottom = document.querySelector(
 );
 const resetButton = document.querySelector("#reset-button");
 
-let score = 0;
-let trumpCounter = 0;
-let trumpCostCounter = 50;
+let score;
+let trumpCounter;
+let trumpCostCounter;
 
 //updating functions
 const updateScoreCounter = () => {
-  scoreText.innerHTML = `${score}`;
+  //scoreText.innerHTML = `${score}`;
   setScoreToLocalStorage();
+  scoreText.innerHTML = getScoreFromLocalStorage();
 };
 
 const changeBidenFace = () => {
@@ -44,6 +45,7 @@ const updateTrumpButton = () => {
 const updateTrumpCost = () => {
   if (trumpCounter === 1) {
     trumpCostCounter += 15;
+    setTrumpCostCounterToLocalStorage(65);
     return (trumpCost.innerHTML = `${65}`);
   } else if (trumpCounter >= 6) {
     trumpButtonText.classList.add("hidden-button-text");
@@ -51,6 +53,7 @@ const updateTrumpCost = () => {
     trumpCost.innerHTML = "No more Trumps, sorry :(";
   } else {
     trumpCostCounter = trumpCostCounter + 15 * trumpCounter;
+    setTrumpCostCounterToLocalStorage(trumpCostCounter);
     console.log(trumpCostCounter);
     trumpCost.innerHTML = `${trumpCostCounter}`;
   }
@@ -64,6 +67,8 @@ const clickOnBiden = (event) => {
   changeBidenFace();
   changeCursorBonk(event);
   updateTrumpButton();
+
+  console.log(trumpCostCounter);
 };
 
 //trump click
@@ -131,24 +136,60 @@ resetButton.addEventListener("click", clickOnNewGameButton);
 
 //localStorage
 const setAllLocalStorage = () => {
-  localStorage.setItem("score", `${score}`);
+  setScoreToLocalStorage();
+  setTrumpCounterToLocalStorage();
+  setTrumpCostCounterToLocalStorage(50);
 };
 
+//localStorage score
 const setScoreToLocalStorage = () => {
   localStorage.setItem("score", `${score}`);
-  console.log(localStorage.getItem("score"));
 };
 
 const getScoreFromLocalStorage = () => {
   return localStorage.getItem("score");
 };
 
+//localStorage trumpCounter
+const setTrumpCounterToLocalStorage = () => {
+  localStorage.setItem("trumpCounter", `${trumpCounter}`);
+};
+
+const getTrumpCounterFromLocalStorage = () => {
+  return localStorage.getItem("trumpCounter");
+};
+
+//localStorage trumpCostCounter
+const setTrumpCostCounterToLocalStorage = (value) => {
+  localStorage.setItem("trumpCostCounter", `${value}`);
+};
+
+const getTrumpCostCounterFromLocalStorage = () => {
+  return localStorage.getItem("trumpCostCounter");
+};
+
 //preparing game
 const preapareGame = () => {
-  score = 4558;
-  updateScoreCounter();
-  updateTrumpButton();
-  setAllLocalStorage();
+  if (!localStorage.getItem("score")) {
+    score = 0;
+    trumpCounter = 0;
+    trumpCostCounter = 50;
+    setAllLocalStorage();
+    updateScoreCounter();
+  } else {
+    trumpCounter = 0;
+    score = localStorage.getItem("score");
+    if (!localStorage.getItem("trumpCostCounter")) {
+      setTrumpCostCounterToLocalStorage(50);
+      trumpCostCounter = getTrumpCostCounterFromLocalStorage();
+    } else {
+      trumpCostCounter = getTrumpCostCounterFromLocalStorage();
+    }
+    console.log(score);
+    setScoreToLocalStorage();
+    updateScoreCounter();
+    updateTrumpButton();
+  }
 };
 
 preapareGame();
