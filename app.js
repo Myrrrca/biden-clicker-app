@@ -7,11 +7,13 @@ const trumpButtonText = document.querySelector("#trump-button-text");
 const trumpButtonTextBottom = document.querySelector(
   "#trump-botton-text-buttom"
 );
+const resetButton = document.querySelector("#reset-button");
 
 let score = 0;
 let trumpCounter = 0;
 let trumpCostCounter = 50;
 
+//updating functions
 const updateScoreCounter = () => {
   scoreText.innerHTML = `${score}`;
 };
@@ -38,14 +40,33 @@ const updateTrumpButton = () => {
   }
 };
 
+const updateTrumpCost = () => {
+  if (trumpCounter === 1) {
+    trumpCostCounter += 15;
+    return (trumpCost.innerHTML = `${65}`);
+  } else if (trumpCounter >= 6) {
+    trumpButtonText.classList.add("hidden-button-text");
+    trumpButtonTextBottom.classList.add("hidden-button-text");
+    trumpCost.innerHTML = "No more Trumps, sorry :(";
+  } else {
+    trumpCostCounter = trumpCostCounter + 15 * trumpCounter;
+    console.log(trumpCostCounter);
+    trumpCost.innerHTML = `${trumpCostCounter}`;
+  }
+};
+
+//click functions
+//biden click
 const clickOnBiden = (event) => {
   ++score;
   updateScoreCounter();
   changeBidenFace();
   changeCursorBonk(event);
   updateTrumpButton();
+  setLocalStorage();
 };
 
+//trump click
 const addTrump = () => {
   if (trumpCounter >= 6 && buttonTrump.classList.contains("active-button")) {
     updateTrumpButton();
@@ -61,21 +82,6 @@ const addTrump = () => {
     updateTrumpButton();
     ++trumpCounter;
     console.log(trumpCounter);
-  }
-};
-
-const updateTrumpCost = () => {
-  if (trumpCounter === 1) {
-    trumpCostCounter += 15;
-    return (trumpCost.innerHTML = `${65}`);
-  } else if (trumpCounter >= 6) {
-    trumpButtonText.classList.add("hidden-button-text");
-    trumpButtonTextBottom.classList.add("hidden-button-text");
-    trumpCost.innerHTML = "No more Trumps, sorry :(";
-  } else {
-    trumpCostCounter = trumpCostCounter + 15 * trumpCounter;
-    console.log(trumpCostCounter);
-    trumpCost.innerHTML = `${trumpCostCounter}`;
   }
 };
 
@@ -102,7 +108,6 @@ const clickOnTrumpButton = (event) => {
     buttonTrump.classList.remove("active-button");
     updateTrumpButton();
     trumpClicking();
-
     updateTrumpCost();
     if (trumpCounter >= 6) {
       score += trumpCostCounter;
@@ -111,13 +116,31 @@ const clickOnTrumpButton = (event) => {
   updateTrumpButton();
 };
 
+const clickOnNewGameButton = () => {
+  window.localStorage.clear();
+  window.location.reload();
+};
+
+const reloadPage = (event) => {};
+
+//eventListeners
 bidenImg.addEventListener("click", clickOnBiden);
 buttonTrump.addEventListener("click", clickOnTrumpButton);
+resetButton.addEventListener("click", clickOnNewGameButton);
+//window.addEventListener("load", reloadPage);
 
+//localStorage
+const setLocalStorage = () => {
+  localStorage.setItem("score", `${score}`);
+  console.log(localStorage.getItem("score"));
+};
+
+//preparing game
 const preapareGame = () => {
   score = 0;
   updateScoreCounter();
   updateTrumpButton();
+  setLocalStorage();
 };
 
 preapareGame();
