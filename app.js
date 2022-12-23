@@ -44,7 +44,7 @@ const updateTrumpButton = () => {
 
 const updateTrumpCost = () => {
   if (trumpCounter === 1) {
-    trumpCostCounter += 15;
+    trumpCostCounter = Number(trumpCostCounter) + 15;
     setTrumpCostCounterToLocalStorage(65);
     return (trumpCost.innerHTML = `${65}`);
   } else if (trumpCounter >= 6) {
@@ -52,7 +52,7 @@ const updateTrumpCost = () => {
     trumpButtonTextBottom.classList.add("hidden-button-text");
     trumpCost.innerHTML = "No more Trumps, sorry :(";
   } else {
-    trumpCostCounter = trumpCostCounter + 15 * trumpCounter;
+    trumpCostCounter = Number(trumpCostCounter) + 15 * Number(trumpCounter);
     setTrumpCostCounterToLocalStorage(trumpCostCounter);
     console.log(trumpCostCounter);
     trumpCost.innerHTML = `${trumpCostCounter}`;
@@ -187,9 +187,30 @@ const preapareGame = () => {
     }
     if (!localStorage.getItem("trumpCounter")) {
       setTrumpCounterToLocalStorage(0);
-      trumpCounter = getTrumpCounterFromLocalStorage();
+      trumpCounter = trumpCounter;
     } else {
       trumpCounter = getTrumpCounterFromLocalStorage();
+    }
+    if (trumpCounter > 0) {
+      const currentTrumpCounter = getTrumpCounterFromLocalStorage();
+      for (let i = 0; i < currentTrumpCounter; i++) {
+        let img = document.createElement("img");
+        img.src = "./pics/trump.jpg";
+        img.style.display = "flex";
+        img.style.justifyContent = "center";
+        img.style.alignItems = "center";
+        trumpsSpace.append(img);
+        updateTrumpButton();
+        trumpCost.innerHTML = `${trumpCostCounter}`;
+      }
+      for (let i = 0; i < currentTrumpCounter; i++) {
+        setTimeout(() => {
+          ++score;
+          updateScoreCounter();
+          trumpClicking();
+          updateTrumpButton();
+        }, 1000);
+      }
     }
     console.log(score);
     setScoreToLocalStorage();
