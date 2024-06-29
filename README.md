@@ -1,7 +1,7 @@
 # Biden Clicker application
 Bonk this Biden - https://myrrrca.github.io/biden-clicker-app/
-![overview-1](pics/overview-1)
-![overview-2](pics/overview-2)
+![overview-1](pics/overview-1.png)
+![overview-2](pics/overview-2.png)
 
 ## Operation
 - Your cursor replased with hammer image and for each **bonk** on Biden you will recieve one point
